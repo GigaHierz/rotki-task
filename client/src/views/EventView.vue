@@ -1,17 +1,35 @@
-<script setup lang="ts">
+<script lang="ts">
 import EventList from "../components/EventList.vue";
 import { useEventStore } from "../stores/EventStore";
 
-const eventStore = useEventStore();
-
-console.log(eventStore.user);
-
-const hallloo = "HAlo";
+export default {
+  setup() {
+    const eventStore = useEventStore();
+    return {
+      eventStore,
+    };
+  },
+  created() {
+    this.eventStore.fetchEvents().catch((error) => {
+      this.$router.push({
+        name: "ErrorDisplay",
+        params: { error: error },
+      });
+    });
+  },
+  computed: {
+    events() {
+      return this.$store.state.events;
+    },
+  },
+};
 </script>
 
 <template>
   <EventList :events="hallloo" />
-  {{ eventStore.user }}
+
+  {{ eventStore.events }}
+  {{ eventStore.getEvents }}
 
   <!-- {{ userData.eventStore.user }} -->
 </template>

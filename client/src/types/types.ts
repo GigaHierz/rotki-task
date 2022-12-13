@@ -7,6 +7,12 @@ export interface TransactionEvent {
   readonly timestamp: number
 }
 
+export interface TransactionEventFlattend extends TransactionEvent {
+  account: string
+  amount: string
+  usd_value: string
+}
+
 export interface Value {
   readonly amount: string
   readonly usd_value: string
