@@ -17,5 +17,15 @@ export interface TransactionEvents {
 }
 
 export interface Account {
-  readonly [address: string]: Value | TransactionEvents
+  readonly [address: string]: Currency | TransactionEvents
+}
+export interface Currency {
+  readonly [address: string]: Value
+}
+
+export interface AssetInfo {
+  readonly objectKey: string
+  readonly assetSum: number | string
+  readonly assetSumUSD: number | string
+  readonly percentage: number
 }

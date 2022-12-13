@@ -9,6 +9,17 @@ export enum CRYPTO_CURRENCY {
   GTC = 'GTC'
 }
 
+export const CRYPTO_CURRENCYS = {
+  ETH: 'ETH',
+  DAI: 'DAI',
+  UNI: 'UNI',
+  AAVE: 'AAVE',
+  COMP: 'COMP',
+  SUSHI: 'SUSHI',
+  GRT: 'GRT',
+  GTC: 'GTC'
+}
+
 export const eventsTitles = [
   'Event Type',
   'Asset',
@@ -17,4 +28,4 @@ export const eventsTitles = [
   'Time',
   'Sender'
 ]
-export const assetsTitles = ['Assets', 'Amount', 'USD Value', 'Percentage']
+export const balancesTitles = ['Balances', 'Amount', 'USD Value', 'Percentage']

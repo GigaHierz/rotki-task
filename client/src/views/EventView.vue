@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import EventList from "../components/EventList.vue";
-import { client } from "../../utils/client";
-import { TransactionEvents } from "../types/types";
+import { useEventStore } from "../stores/EventStore";
 
-let userData: Array<TransactionEvents>;
+const eventStore = useEventStore();
 
-const fetchData = async () => {
-  await client("events").then((data) => {
-    console.log(data);
-    userData = data.events?.result;
-  });
-};
+console.log(eventStore.user);
 
-fetchData();
+const hallloo = "HAlo";
 </script>
 
 <template>
-  <EventList :events="userData" />
+  <EventList :events="hallloo" />
+  {{ eventStore.user }}
+
+  <!-- {{ userData.eventStore.user }} -->
 </template>
 
 <style lang="scss">

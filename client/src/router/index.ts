@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AssetsView from '../views/AssetsView.vue'
+import BalancesView from '../views/BalancesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'assets',
-      component: AssetsView
+      name: 'balances',
+      component: BalancesView
     },
     {
       path: '/events',

@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from "vue-router";
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Assets</RouterLink>
+        <RouterLink to="/">Balances</RouterLink>
         <RouterLink to="/events">Events</RouterLink>
       </nav>
     </div>
