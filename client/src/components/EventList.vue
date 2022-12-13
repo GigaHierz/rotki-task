@@ -47,7 +47,7 @@ const getAssetInfo = (
   objectKey: string,
   account?: string
 ): AssetInfo => {
-  console.log(obj);
+  // console.log(obj);
 
   account
     ? Object.keys(obj).forEach((key) => {
@@ -73,7 +73,7 @@ const getAssetInfo = (
 
   let percentage = assetSumUSD / sum;
 
-  // console.log(objectKey, assetSum, assetSumUSD, percentage);
+  console.log(objectKey, assetSum, assetSumUSD, percentage);
 
   return { objectKey, assetSum, assetSumUSD, percentage };
 };
@@ -95,7 +95,7 @@ const getBalances = async (account?: string) => {
     Object.keys(CRYPTO_CURRENCYS).map((currency) =>
       assetList.push(getAssetInfo(userData, currency, account))
     );
-    console.log(assetList);
+    // console.log(assetList);
 
     // const assetList =
     // Object.values(
@@ -110,7 +110,7 @@ getEvents();
 getBalances("0xABC11a5aCc3ad66025C21f24a91dD71D0Fc28a46");
 
 const getAccounts = () => {
-  console.log(userData);
+  // console.log(userData);
 };
 
 getAccounts();

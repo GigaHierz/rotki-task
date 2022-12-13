@@ -5,8 +5,6 @@ export default {
     let result
 
     await client('events').then(data => {
-      console.log(data)
-
       result = data.result
     })
 

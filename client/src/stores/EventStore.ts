@@ -1,24 +1,43 @@
 import { defineStore } from 'pinia'
-// import { TransactionEvents } from '@/types/types'
 import EventService from '../services/EventService'
 
 export const useEventStore = defineStore('EventStore', {
   state: () => ({
-    user: 'Lena HIerzi',
-    events: [],
-    event: {}
+    response: {},
+    accounts: [],
+    events: []
   }),
   getters: {
-    firstName () {
-      return this.user.split(' ')[0]
+    numberofEvents (account?: string) {
+      account
+        ? this.events.filter(event => event.account === account).length
+        : this.events.length
     },
-    numberofEvents: state => state.events?.length
+    getAccounts () {
+      this.accounts = Object.keys(this.response)
+    },
+    getEvents () {
+      this.accounts.map(account => {
+        this.response[account].events.map(event => {
+          this.events.push({
+            account,
+            event_type: event.event_type,
+            asset: event.asset,
+            amount: event.value.amount,
+            usd_value: event.value.usd_value,
+            timestamp: event.timestamp
+          })
+        })
+      })
+    }
   },
   actions: {
     fetchEvents () {
       return EventService.getEvents()
         .then(response => {
-          this.events = response.data
+          console.log(response)
+
+          this.response = response
         })
         .catch(error => {
           throw error
