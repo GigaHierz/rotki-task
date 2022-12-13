@@ -5,12 +5,13 @@ export const useEventStore = defineStore('EventStore', {
   state: () => ({
     response: {},
     accounts: [],
-    events: []
+    events: [],
+    eventsForAccount: []
   }),
   getters: {
     numberofEvents (account?: string) {
       account
-        ? this.events.filter(event => event.account === account).length
+        ? this.events?.filter(event => event?.account === account).length
         : this.events.length
     },
     getAccounts () {
@@ -29,6 +30,11 @@ export const useEventStore = defineStore('EventStore', {
           })
         })
       })
+    },
+    getEventsForAccount: state => (account: string) => {
+      state.eventsForAccount = state.events.filter(
+        event => event.account === account
+      )
     }
   },
   actions: {

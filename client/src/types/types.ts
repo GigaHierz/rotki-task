@@ -1,9 +1,9 @@
-import { CRYPTO_CURRENCY } from '@/data/data'
+import type { CRYPTO_CURRENCY } from '@/data/data'
 
 export interface TransactionEvent {
   readonly event_type: 'deposit' | 'withdraw'
   readonly asset: CRYPTO_CURRENCY
-  readonly value: Value
+  readonly value?: Value
   readonly timestamp: number
 }
 
@@ -29,9 +29,8 @@ export interface Currency {
   readonly [address: string]: Value
 }
 
-export interface AssetInfo {
-  readonly objectKey: string
-  readonly assetSum: number | string
-  readonly assetSumUSD: number | string
-  readonly percentage: number
+export interface BalancesFlattened extends Value {
+  account: string
+  currency: string
+  percentage: number
 }

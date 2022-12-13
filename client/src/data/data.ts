@@ -6,7 +6,9 @@ export enum CRYPTO_CURRENCY {
   COMP = 'COMP',
   SUSHI = 'SUSHI',
   GRT = 'GRT',
-  GTC = 'GTC'
+  GTC = 'GTC',
+  MKR = 'MKR',
+  YFI = 'YFI'
 }
 
 export const CRYPTO_CURRENCYS = {
@@ -17,7 +19,9 @@ export const CRYPTO_CURRENCYS = {
   COMP: 'COMP',
   SUSHI: 'SUSHI',
   GRT: 'GRT',
-  GTC: 'GTC'
+  GTC: 'GTC',
+  MKR: 'MKR',
+  YFI: 'YFI'
 }
 
 export const eventsTitles = [
