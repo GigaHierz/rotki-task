@@ -17,11 +17,6 @@ export default {
       });
     });
   },
-  computed: {
-    events() {
-      return this.$store.state.events;
-    },
-  },
 };
 </script>
 
@@ -30,6 +25,9 @@ export default {
 
   {{ eventStore.events }}
   {{ eventStore.getEvents }}
+  {{
+    eventStore.getEventsForAccount("0xABC11a5aCc3ad66025C21f24a91dD71D0Fc28a46")
+  }}
 
   <!-- {{ userData.eventStore.user }} -->
 </template>
