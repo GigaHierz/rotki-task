@@ -32,4 +32,4 @@ export const eventsTitles = [
   'Time',
   'Sender'
 ]
-export const balancesTitles = ['Balances', 'Amount', 'USD Value', 'Percentage']
+export const balancesTitles = ['Asset', 'Amount', 'USD Value', 'Percentage']
