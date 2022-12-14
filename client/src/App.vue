@@ -1,5 +1,28 @@
-<script setup lang="ts">
+<script lang="ts">
 import { RouterLink, RouterView } from "vue-router";
+import { useBalanceStore } from "@/stores/BalanceStore";
+
+export default {
+  setup() {
+    const balanceStore = useBalanceStore();
+    return {
+      balanceStore,
+    };
+  },
+  created() {
+    this.balanceStore.fetchBalances().catch((error) => {
+      this.$router.push({
+        name: "ErrorDisplay",
+        params: { error: error },
+      });
+    });
+  },
+  computed: {
+    sum() {
+      return this.balanceStore.getSum;
+    },
+  },
+};
 </script>
 
 <template>
@@ -10,6 +33,7 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/events">Events</RouterLink>
       </nav>
     </div>
+    <div class="wrapper">Your current balance : ${{ balanceStore.sum }}</div>
   </header>
 
   <RouterView />
@@ -19,6 +43,11 @@ import { RouterLink, RouterView } from "vue-router";
 header {
   line-height: 1.5;
   max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .wrapper {
+    margin: auto;
+  }
 }
 
 nav {
