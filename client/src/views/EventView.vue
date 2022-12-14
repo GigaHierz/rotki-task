@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <!-- <EventList :events="hallloo" /> -->
+  <!-- <EventList :events="eventStore.events" /> -->
 
   <main>
     <div>

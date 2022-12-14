@@ -2,8 +2,6 @@
 const props = defineProps({
   titles: { required: true, type: Array<String> },
 });
-
-console.log(props.titles);
 </script>
 
 <template>

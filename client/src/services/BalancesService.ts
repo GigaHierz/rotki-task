@@ -1,8 +1,9 @@
+import type { Account } from '@/types/types'
 import { client } from '../../utils/client'
 
 export default {
-  getBalances () {
-    return client('balances').then(data => {
+  async getBalances () {
+    return await client('balances').then((data: { result: Account }) => {
       return data.result
     })
   }
