@@ -21,15 +21,29 @@ export default {
 </script>
 
 <template>
-  <EventList :events="hallloo" />
+  <!-- <EventList :events="hallloo" /> -->
 
-  {{ eventStore.events }}
+  <main>
+    <div>
+      <p>Wallet: {{ selected }}</p>
+      <select v-model="selected">
+        <option v-for="(account, index) in eventStore.accounts" :key="index">
+          {{ account }}
+        </option>
+      </select>
+    </div>
+
+    <ul>
+      <li v-for="(event, index) in eventStore.events" :key="index">
+        Event Type: {{ event.event_type }}, Asset: {{ event.asset }}, Value:
+        {{ event.amount }}, USD Value: {{ event.usd_value }}, Time:
+        {{ event.timestamp }}, Sender: {{ event.account }}
+      </li>
+    </ul>
+  </main>
+
   {{ eventStore.getEvents }}
-  {{
-    eventStore.getEventsForAccount("0xABC11a5aCc3ad66025C21f24a91dD71D0Fc28a46")
-  }}
-
-  <!-- {{ userData.eventStore.user }} -->
+  <!-- {{ eventStore.getEventsForAccount(selected.toString()) }} -->
 </template>
 
 <style lang="scss">
