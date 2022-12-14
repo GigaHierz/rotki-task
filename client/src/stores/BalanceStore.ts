@@ -1,15 +1,15 @@
-import { CRYPTO_CURRENCYS } from '@/data/data'
-import BalancesService from '@/services/BalancesService'
-import type { BalancesFlattened } from '@/types/types'
 import { defineStore } from 'pinia'
+import { CRYPTO_CURRENCYS } from '@/data/data'
+import type { BalancesFlattened } from '@/types/types'
+import BalancesService from '@/services/BalancesService'
 
 export const useBalanceStore = defineStore('BalanceStore', {
   state: () => ({
     response: {},
-    accounts: [],
-    balances: [],
-    balancesSum: [],
-    balancesForAccount: [],
+    accounts: [] as Array<String>,
+    balances: [] as Array<BalancesFlattened>,
+    balancesSum: [] as Array<BalancesFlattened>,
+    balancesForAccount: [] as Array<BalancesFlattened>,
     sum: 0
   }),
   getters: {
@@ -23,10 +23,11 @@ export const useBalanceStore = defineStore('BalanceStore', {
       )
     },
     getAllBalances () {
+      const temp = [] as Array<BalancesFlattened>
       this.accounts.map(account => {
         Object.keys(CRYPTO_CURRENCYS).map(currency => {
           this.response[account][currency]?.amount &&
-            this.balances.push({
+            temp.push({
               account,
               currency,
               amount: this.response[account][currency]?.amount,
@@ -34,8 +35,14 @@ export const useBalanceStore = defineStore('BalanceStore', {
             })
         })
       })
+
+      this.balances = [...temp]
     },
-    getBalancesForAccount: state => (account: string) => {
+    // getBalancesForAccount: state => {
+    //   return (account: string) =>
+    //     state.balances.filter(balance => balance.account === account)
+    // },
+    getEventsForAccount: state => (account: string) => {
       state.balancesForAccount = state.balances.filter(
         balance => balance.account === account
       )
@@ -75,8 +82,6 @@ export const useBalanceStore = defineStore('BalanceStore', {
     fetchBalances () {
       return BalancesService.getBalances()
         .then(response => {
-          console.log(response)
-
           this.response = response
         })
         .catch(error => {
@@ -85,80 +90,3 @@ export const useBalanceStore = defineStore('BalanceStore', {
     }
   }
 })
-
-// getTotalSum  (obj, objectKey: string)  {
-//   // console.log(obj);
-
-//   Object.keys(obj).forEach((key) => {
-//     // console.log(`key: ${key}, value: ${obj[key]}`);
-
-//     if (key == objectKey) {
-//       sum += Number(obj[key]);
-//       // console.log(obj[key]);
-//       console.log(sum);
-//     }
-
-//     if (typeof obj[key] === "object" && obj[key] !== null) {
-//       getTotalSum(obj[key], objectKey);
-//     }
-//   });
-
-//   return sum;
-// };
-
-// const getAssetInfo = (
-//   obj: Account | Currency,
-//   objectKey: string,
-//   account?: string
-// ): AssetInfo => {
-//   // console.log(obj);
-
-//   account
-//     ? Object.keys(obj).forEach((key) => {
-//         if (key == objectKey) {
-//           assetSum = Number(obj[account][key].amount);
-//           assetSumUSD = Number(obj[account][key].usd_value);
-//         }
-
-//         // if (typeof obj[key] === "object" && obj[key] !== null) {
-//         //   getAssetInfo(obj[account][key], objectKey);
-//         // }
-//       })
-//     : Object.keys(obj).forEach((key) => {
-//         if (key == objectKey) {
-//           assetSum += Number((obj[key] as Currency).amount);
-//           assetSumUSD += Number((obj[key] as Currency).usd_value);
-//         }
-
-//         if (typeof obj[key] === "object" && obj[key] !== null) {
-//           getAssetInfo(obj[key] as Currency, objectKey);
-//         }
-//       });
-
-//   let percentage = assetSumUSD / sum;
-
-//   console.log(objectKey, assetSum, assetSumUSD, percentage);
-
-//   return { objectKey, assetSum, assetSumUSD, percentage };
-// };
-
-// const getBalances = async (account?: string) => {
-//   let assetList = [];
-//   await client("balances").then((data) => {
-//     // console.log(data);
-//     userData = data.result;
-//     const userAccounts = Object.keys(userData);
-//     const totalSum = getTotalSum(userData, "usd_value");
-//     Object.keys(CRYPTO_CURRENCYS).map((currency) =>
-//       assetList.push(getAssetInfo(userData, currency, account))
-//     );
-//     // console.log(assetList);
-
-//     // const assetList =
-//     // Object.values(
-//     //   userData[userAccounts[0]].reduce((a, b) => a.usd_value + b.usd_value, 0)
-//     // );
-
-//     return { userAccounts, totalSum, assetList };
-//   });
-// };

@@ -1,26 +1,29 @@
+import type { TransactionEventFlattend } from '@/types/types'
 import { defineStore } from 'pinia'
 import EventService from '../services/EventService'
 
 export const useEventStore = defineStore('EventStore', {
   state: () => ({
     response: {},
-    accounts: [],
-    events: [],
-    eventsForAccount: []
+    accounts: [] as Array<String>,
+    events: [] as Array<TransactionEventFlattend>,
+    eventsForAccount: [] as Array<TransactionEventFlattend>
   }),
   getters: {
+    getAccounts () {
+      this.accounts = Object.keys(this.response)
+    },
     numberofEvents (account?: string) {
       account
         ? this.events?.filter(event => event?.account === account).length
         : this.events.length
     },
-    getAccounts () {
-      this.accounts = Object.keys(this.response)
-    },
     getEvents () {
+      const temp = [] as Array<TransactionEventFlattend>
+
       this.accounts.map(account => {
         this.response[account].events.map(event => {
-          this.events.push({
+          temp.push({
             account,
             event_type: event.event_type,
             asset: event.asset,
@@ -30,6 +33,8 @@ export const useEventStore = defineStore('EventStore', {
           })
         })
       })
+
+      this.events = [...temp]
     },
     getEventsForAccount: state => (account: string) => {
       state.eventsForAccount = state.events.filter(
